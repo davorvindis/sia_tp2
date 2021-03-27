@@ -1,5 +1,5 @@
 from src.Classes import *
-
+from src.RandomGenerator import *
 
 def cruce_1p(padre1, padre2, n):
     if n > 5:
@@ -104,3 +104,81 @@ def child_creator(parent, son1, son2):
     return child1, child2
 
 
+def mutacion_gen(individuo):
+    # Gen a mutar
+    pg = np.random.randint(1, 6, size=None, dtype='l')
+
+    # Probabilidad de mutacion
+    pm = 0.3
+    # height, weapon, helmet, boots, gloves, armour
+    # Hay 2 opciones. 1- Nuevo y random o 2- Modificar el existente con un delta (considerando una distribucion)
+    rand = np.random.uniform(0.0, 1.0, None)
+    if rand <= pm:
+        if pg==1:
+            individuo.height = random_height()
+        if pg==2:
+            individuo.weapon = get_n_random_items( "armas", 1).pop()
+        if pg==3:
+            individuo.helmet = get_n_random_items( "cascos", 1).pop()
+        if pg==4:
+            individuo.boots = get_n_random_items( "botas", 1).pop()
+        if pg==5:
+            individuo.gloves = get_n_random_items( "guantes", 1).pop()
+        if pg==6:
+            individuo.armour = get_n_random_items( "pecheras", 1).pop()
+    return
+
+def mutacion_multigen_limitada(individuo, cantidad_genes):
+#PAUSA, LE FALTA TERMINARLO
+
+
+
+    # Probabilidad de mutacion
+    pm = 0.3
+    # height, weapon, helmet, boots, gloves, armour
+    # Hay 2 opciones. 1- Nuevo y random o 2- Modificar el existente con un delta (considerando una distribucion)
+    genes_modificados = 0
+    lista_de_genes_modificados = list()
+
+    while genes_modificados < cantidad_genes:
+        # Gen a mutar
+        pg = np.random.randint(1, 6, size=None, dtype='l')
+        rand = np.random.uniform(0.0, 1.0, None)
+        if rand <= pm :
+            if pg==1:
+                individuo.height = random_height()
+            if pg==2:
+                individuo.weapon = get_n_random_items( "armas", 1).pop()
+            if pg==3:
+                individuo.helmet = get_n_random_items( "cascos", 1).pop()
+            if pg==4:
+                individuo.boots = get_n_random_items( "botas", 1).pop()
+            if pg==5:
+                individuo.gloves = get_n_random_items( "guantes", 1).pop()
+            if pg==6:
+                individuo.armour = get_n_random_items( "pecheras", 1).pop()
+            cantidad_genes += 1
+
+    return
+
+def mutacion_multigen_uniforme(individuo):
+    # Probabilidad de mutacion
+    pm = 0.3
+
+    if np.random.uniform(0.0, 1.0, None) <= pm:
+        individuo.height = random_height()
+    if np.random.uniform(0.0, 1.0, None) <= pm:
+        individuo.weapon = get_n_random_items( "armas", 1).pop()
+    if np.random.uniform(0.0, 1.0, None) <= pm:
+        individuo.helmet = get_n_random_items( "cascos", 1).pop()
+    if np.random.uniform(0.0, 1.0, None) <= pm:
+        individuo.boots = get_n_random_items( "botas", 1).pop()
+    if np.random.uniform(0.0, 1.0, None) <= pm:
+        individuo.gloves = get_n_random_items( "guantes", 1).pop()
+    if np.random.uniform(0.0, 1.0, None) <= pm:
+        individuo.armour = get_n_random_items( "pecheras", 1).pop()
+
+    return
+
+def mutacion_completa(set):
+    return

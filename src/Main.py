@@ -23,7 +23,7 @@ f.close()
 # print(hijo2)
 
 
-c = generate_random_character("warrior", 2)
+c = generate_random_character("warrior", 20)
 print(c.pop())
-# print(c.pop())
+print(c.pop())
 

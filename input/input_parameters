@@ -1,0 +1,8 @@
+{
+  "genetic_operator" : "cruce_1p",
+  "parents_selection_1" : "elite",
+  "parents_selection_2" : "roulette",
+  "implementation_type" : "fill_all",
+  "stop_criteria" : "generations_n",
+  "genetic_operator" : "cruce_1p"
+}

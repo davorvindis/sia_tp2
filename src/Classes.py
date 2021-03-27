@@ -5,7 +5,6 @@ class Character:
     def __init__(self, role, height, weapon, helmet, boots, gloves, armour):
         # if height not in range[1.3, 2]:
         #     raise ValueError("Height should be a number between 1,3 and 2")
-
         self.atm = 0.7 - np.power((3 * height - 5), 4) + np.power((3 * height - 5), 2) + height / 4
         self.dem = 1.9 + np.power((2.5 * height - 4.16), 4) - np.power((2.5 * height - 4.16), 2) - 3 * height / 10
         self.height = height
@@ -62,16 +61,21 @@ class Character:
 
     def __str__(self):
         return "{ character" + '\n' + '\t' + \
-                    "type: " + str(self.role) + '\n' + '\t' \
-                    "height: " + str(self.height) + '\n' + '\t' \
-                    "weapon: " + str(self.weapon.id) + ", helmet: " + str(self.helmet.id) + ", boots: " + \
-                    str(self.boots.id) + ", gloves: " + str(self.gloves.id) +", armour: " + \
-                    str(self.armour.id) + '\n' + '\t' \
-                    "attack = " + str(self.attack()) + '\n' + '\t' \
-                    "defense = " + str(self.defense()) + '\n' + '\t' \
-                    "performance = " + str(self.fitness()) + '\n' + '\t' \
-                "}"
+               "type: " + str(self.role) + '\n' + '\t' \
+                                                  "height: " + str(self.height) + '\n' + '\t' \
+                                                                                         "weapon: " + str(
+            self.weapon.id) + ", helmet: " + str(self.helmet.id) + ", boots: " + \
+               str(self.boots.id) + ", gloves: " + str(self.gloves.id) + ", armour: " + \
+               str(self.armour.id) + '\n' + '\t' \
+                                            "attack = " + str(self.attack()) + '\n' + '\t' \
+                                                                                      "defense = " + str(
+            self.defense()) + '\n' + '\t' \
+                                     "performance = " + str(self.fitness()) + '\n' + '\t' \
+                                                                                     "}"
 
+    def __hash__(self):
+        return hash(hash(self.role) + hash(self.helmet.id) + hash(self.gloves.id) + hash(self.boots.id)
+                    + hash(self.weapon.id) + hash(self.armour.id) + hash(self.height))
 
 
 class Warrior(Character):

@@ -19,6 +19,7 @@ def cruce_1p(padre1, padre2, n):
         son2.append(padre1_vec[index])
         index += 1
 
+
     # (role, height, weapon, helmet, boots, gloves, armour)
     char1 = Warrior(son1[0], son1[1], son1[2], son1[3], son1[4], son1[5])
     char2 = Warrior(son2[0], son2[1], son2[2], son2[3], son2[4], son2[5])

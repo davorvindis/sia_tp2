@@ -131,7 +131,7 @@ def mutacion_gen(individuo):
 def mutacion_multigen_limitada(individuo, cantidad_genes):
 #PAUSA, LE FALTA TERMINARLO
 
-
+    
 
     # Probabilidad de mutacion
     pm = 0.3
@@ -184,44 +184,76 @@ def mutacion_completa(set):
     return
 
 def relative_fitness(poblacion):
-	allFitness = [x_i.fitness() for x_i in poblacion]
-	totalFitness = sum(allFitness)
-	relativeFitness = [x_i.fitness()/totalFitness for x_i in poblacion]
-	return relativeFitness
+    allFitness = [x_i.fitness() for x_i in poblacion]
+    totalFitness = sum(allFitness)
+    relativeFitness = [x_i.fitness()/totalFitness for x_i in poblacion]
+    return relativeFitness
 	
 def accumulative_fitness(relativeFitness):
-	return np.cumsum(relativeFitness)
+    return np.cumsum(relativeFitness)
+
+def pseudo_fitness(poblacion):
+    N = len(poblacion)
+    allFitness = [x_i.fitness() for x_i in poblacion]
+    allFitnessSort = allFitness.copy()
+    allFitnessSort.sort(reverse=True) #ranking ordenado de mayor a menor aptitude real.
+    #Luego se utiliza RULETA con este pseudo-aptitud redefinida.
+    pseudo_apt = [(N - (1+allFitnessSort.index(x)))/N for x in allFitness]
+    return pseudo_apt
+
+def seleccion_ranking(poblacion, K):
+    
+    pseudoFitness = pseudo_fitness(poblacion)
+    r = np.random.uniform(0, 1, K)
+    selected = []
+
+    for ri in r:
+        if (ri < pseudoFitness[0]):
+            selected.append(poblacion[0])
+            if len(selected) == K:
+                return selected
+        for index in range(0, len(pseudoFitness)-1):
+            if (pseudoFitness[index] < ri <= pseudoFitness[index+1]):
+                selected.append(poblacion[index+1])
+                if len(selected) == K:
+		    return selected
 
 def seleccion_universal(poblacion, K):
+	
+    fitnessRelativo  = relative_fitness(poblacion)
+    fitnessAcumulado = accumulative_fitness(fitnessRelativo)
 
-	fitnessRelativo  = relative_fitness(poblacion)
-	fitnessAcumulado = accumulative_fitness(fitnessRelativo)
+    #Igual que en ruleta, pero la forma de calcular los rj es la siguiente
+    r_ = np.random.uniform(0,1)
+    r = [(r_ + j)/K for j in range(0, K)]
+    selected = []
 
-	#Igual que en ruleta, pero la forma de calcular los rj es la siguiente
-	r = [(np.random.uniform(0, 1) + j)/K for j in range(0, K)]
-	selected = []
-
-	for ri in r:
-		for index in range(0, len(fitnessAcumulado)-1):
-			if (fitnessAcumulado[index] < ri <= fitnessAcumulado[index+1]):
-				selected.append(poblacion[index+1])
-				if len(selected) == K:
-					break
-	return selected	
-
+    for ri in r:
+	if (ri < fitnessAcumulado[0]):
+	    selected.append(poblacion[0])
+	    if len(selected) == K:
+                return selected
+        for index in range(0, len(fitnessAcumulado)-1):
+            if (fitnessAcumulado[index] < ri <= fitnessAcumulado[index+1]):
+                selected.append(poblacion[index+1])
+                if len(selected) == K:
+		    return selected
 
 def seleccion_ruleta(poblacion, K):
 
-	fitnessRelativo  = relative_fitness(poblacion)
-	fitnessAcumulado = accumulative_fitness(fitnessRelativo)
+    fitnessRelativo  = relative_fitness(poblacion)
+    fitnessAcumulado = accumulative_fitness(fitnessRelativo)
 
-	r = np.random.uniform(0, 1, K)
-	selected = []
+    r = np.random.uniform(0, 1, K)
+    selected = []
 
-	for ri in r:
-		for index in range(0, len(fitnessAcumulado)-1):
-			if (fitnessAcumulado[index] < ri <= fitnessAcumulado[index+1]):
-				selected.append(poblacion[index+1])
-				if len(selected) == K:
-					break
-	return selected
+    for ri in r:
+	if (ri < fitnessAcumulado[0]):
+	    selected.append(poblacion[0])
+	    if len(selected) == K:
+                return selected
+        for index in range(0, len(fitnessAcumulado)-1):
+            if (fitnessAcumulado[index] < ri <= fitnessAcumulado[index+1]):
+                selected.append(poblacion[index+1])
+                if len(selected) == K:
+		    return selected

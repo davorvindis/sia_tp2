@@ -182,3 +182,12 @@ def mutacion_multigen_uniforme(individuo):
 
 def mutacion_completa(set):
     return
+
+def relative_fitness(poblacion):
+	allFitness = [x_i.fitness() for x_i in poblacion]
+	totalFitness = sum(allFitness)
+	relativeFitness = [x_i.fitness()/totalFitness for x_i in poblacion]
+	return relativeFitness
+	
+def accumulative_fitness(relativeFitness):
+	return np.cumsum(relativeFitness)

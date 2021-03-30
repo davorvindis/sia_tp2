@@ -23,7 +23,11 @@ f.close()
 # print(hijo2)
 
 
-c = generate_random_character("warrior", 20)
-print(c.pop())
-print(c.pop())
+#c = generate_random_character("warrior", 20)
+#print(c.pop())
+#print(c.pop())
+
+poblacion = generate_random_character("warrior", 20)
+K = 5
+seleccion1 = seleccion_ruleta(poblacion, K)
 

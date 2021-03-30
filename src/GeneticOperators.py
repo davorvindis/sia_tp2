@@ -191,3 +191,37 @@ def relative_fitness(poblacion):
 	
 def accumulative_fitness(relativeFitness):
 	return np.cumsum(relativeFitness)
+
+def seleccion_universal(poblacion, K):
+
+	fitnessRelativo  = relative_fitness(poblacion)
+	fitnessAcumulado = accumulative_fitness(fitnessRelativo)
+
+	#Igual que en ruleta, pero la forma de calcular los rj es la siguiente
+	r = [(np.random.uniform(0, 1) + j)/K for j in range(0, K)]
+	selected = []
+
+	for ri in r:
+		for index in range(0, len(fitnessAcumulado)-1):
+			if (fitnessAcumulado[index] < ri <= fitnessAcumulado[index+1]):
+				selected.append(poblacion[index+1])
+				if len(selected) == K:
+					break
+	return selected	
+
+
+def seleccion_ruleta(poblacion, K):
+
+	fitnessRelativo  = relative_fitness(poblacion)
+	fitnessAcumulado = accumulative_fitness(fitnessRelativo)
+
+	r = np.random.uniform(0, 1, K)
+	selected = []
+
+	for ri in r:
+		for index in range(0, len(fitnessAcumulado)-1):
+			if (fitnessAcumulado[index] < ri <= fitnessAcumulado[index+1]):
+				selected.append(poblacion[index+1])
+				if len(selected) == K:
+					break
+	return selected

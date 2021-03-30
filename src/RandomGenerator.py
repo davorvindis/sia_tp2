@@ -21,7 +21,7 @@ def random_heights(n):
 
 # generater n random charachters of rol type in a set
 def generate_random_character(type, n):
-    character_set = set()
+    character_set = list() #before : character_set = set()
     boots = get_n_random_items("botas", n)
     helmets = get_n_random_items("cascos", n)
     armours = get_n_random_items("pecheras", n)
@@ -31,7 +31,7 @@ def generate_random_character(type, n):
     i = 0
     while i < n:
         c = Warrior(heights.pop(), weapons.pop(), helmets.pop(), boots.pop(), gloves.pop(), armours.pop())
-        character_set.add(c)
+        character_set.append(c) #before : character_set.add(c)
         i += 1
 
     return character_set

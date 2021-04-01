@@ -203,57 +203,57 @@ def pseudo_fitness(poblacion):
 
 def seleccion_ranking(poblacion, K):
     
-    pseudoFitness = pseudo_fitness(poblacion)
-    r = np.random.uniform(0, 1, K)
-    selected = []
-
-    for ri in r:
-        if (ri < pseudoFitness[0]):
-            selected.append(poblacion[0])
-            if len(selected) == K:
-                return selected
-        for index in range(0, len(pseudoFitness)-1):
-            if (pseudoFitness[index] < ri <= pseudoFitness[index+1]):
-                selected.append(poblacion[index+1])
-                if len(selected) == K:
-		    return selected
+	pseudoFitness = pseudo_fitness(poblacion)
+	r = np.random.uniform(0, 1, K)
+	selected = []
+	
+	for ri in r:
+		if (ri < pseudoFitness[0]):
+			selected.append(poblacion[0])
+			if len(selected) == K:
+				return selected
+		for index in range(0, len(pseudoFitness)-1):
+			if (pseudoFitness[index] < ri <= pseudoFitness[index+1]):
+				selected.append(poblacion[index+1])
+				if len(selected) == K:
+					return selected
 
 def seleccion_universal(poblacion, K):
 	
-    fitnessRelativo  = relative_fitness(poblacion)
-    fitnessAcumulado = accumulative_fitness(fitnessRelativo)
+	fitnessRelativo  = relative_fitness(poblacion)
+	fitnessAcumulado = accumulative_fitness(fitnessRelativo)
 
-    #Igual que en ruleta, pero la forma de calcular los rj es la siguiente
-    r_ = np.random.uniform(0,1)
-    r = [(r_ + j)/K for j in range(0, K)]
-    selected = []
+	#Igual que en ruleta, pero la forma de calcular los rj es la siguiente
+	r_ = np.random.uniform(0,1)
+	r = [(r_ + j)/K for j in range(0, K)]
+	selected = []
 
-    for ri in r:
-	if (ri < fitnessAcumulado[0]):
-	    selected.append(poblacion[0])
-	    if len(selected) == K:
-                return selected
-        for index in range(0, len(fitnessAcumulado)-1):
-            if (fitnessAcumulado[index] < ri <= fitnessAcumulado[index+1]):
-                selected.append(poblacion[index+1])
-                if len(selected) == K:
-		    return selected
+	for ri in r:
+		if (ri < fitnessAcumulado[0]):
+			selected.append(poblacion[0])
+			if len(selected) == K:
+				return selected
+		for index in range(0, len(fitnessAcumulado)-1):
+			if (fitnessAcumulado[index] < ri <= fitnessAcumulado[index+1]):
+				selected.append(poblacion[index+1])
+				if len(selected) == K:
+					return selected
 
 def seleccion_ruleta(poblacion, K):
 
-    fitnessRelativo  = relative_fitness(poblacion)
-    fitnessAcumulado = accumulative_fitness(fitnessRelativo)
+	fitnessRelativo  = relative_fitness(poblacion)
+	fitnessAcumulado = accumulative_fitness(fitnessRelativo)
 
-    r = np.random.uniform(0, 1, K)
-    selected = []
+	r = np.random.uniform(0, 1, K)
+	selected = []
 
-    for ri in r:
-	if (ri < fitnessAcumulado[0]):
-	    selected.append(poblacion[0])
-	    if len(selected) == K:
-                return selected
-        for index in range(0, len(fitnessAcumulado)-1):
-            if (fitnessAcumulado[index] < ri <= fitnessAcumulado[index+1]):
-                selected.append(poblacion[index+1])
-                if len(selected) == K:
-		    return selected
+	for ri in r:
+		if (ri < fitnessAcumulado[0]):
+			selected.append(poblacion[0])
+			if len(selected) == K:
+				return selected
+		for index in range(0, len(fitnessAcumulado)-1):
+			if (fitnessAcumulado[index] < ri <= fitnessAcumulado[index+1]):
+				selected.append(poblacion[index+1])
+				if len(selected) == K:
+					return selected

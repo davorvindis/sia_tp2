@@ -180,8 +180,27 @@ def mutacion_multigen_uniforme(individuo):
 
     return
 
-def mutacion_completa(set):
-    return
+def mutacion_completa(individuo):
+	'''Aplicar un delta al gen, en algún sentido y con alguna distribución '''
+	std = 0.2
+	
+	deltaHeight = individuo.height - random.gauss(mu=individuo.height, sigma=std)
+	individuo.height += deltaHeight
+	
+	deltaWeapon = individuo.weapon - random.gauss(mu=individuo.weapon, sigma=std)
+	individuo.weapon += deltaWeapon
+
+	deltaHelmet = individuo.helmet - random.gauss(mu=individuo.helmet, sigma=std)
+	individuo.helmet += deltaHelmet
+
+	deltaBoots = individuo.boots - random.gauss(mu=individuo.boots, sigma=std)
+	individuo.boots += deltaBoots
+
+	deltaGloves = individuo.gloves - random.gauss(mu=individuo.gloves, sigma=std)
+	individuo.gloves += deltaGloves
+
+	deltaArmour = individuo.armour - random.gauss(mu=individuo.armour, sigma=std)
+	individuo.armour += deltaArmour
 
 def relative_fitness(poblacion):
     allFitness = [x_i.fitness() for x_i in poblacion]

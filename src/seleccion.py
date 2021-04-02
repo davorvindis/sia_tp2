@@ -92,17 +92,13 @@ def seleccion_torneo_probabilistico(poblacion, K):
     random_list = n_random(K, 0, 10)
     index = 0
     while K > 0:
-        selected_positions = list(random.sample(range(0, len(poblacion)), K))
-        cut = 0
+        selected_positions = list(random.sample(range(0, len(poblacion)), 2))
         torneo_list = list()
         for individuo in poblacion:
             i = poblacion.index(individuo)
             if poblacion.index(individuo) in selected_positions:
-                cut += 1
                 selected_positions.remove(i)
                 torneo_list.append(individuo)
-            if cut == 2:
-                break
         torneo_list.sort(reverse=True, key=getFitness)
         K -= 1
         if random_list[index] < thresholds_list[index]:

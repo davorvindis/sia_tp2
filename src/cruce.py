@@ -88,6 +88,7 @@ def cruce_uniforme(padre1, padre2):
     return child_creator(padre1, son1, son2)
 
 ###################################################################
+
 # [ tipo, padre1, padre2, var1, var2 ]
 # [0, 1, 2, 3, 4]
 def cruce_wrapper(fn):
@@ -106,3 +107,5 @@ def cruce_wrapper(fn):
 @cruce_wrapper
 def cruce(*args):
     print("1")
+
+###################################################################

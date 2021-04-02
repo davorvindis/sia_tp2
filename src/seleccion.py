@@ -88,11 +88,11 @@ def seleccion_torneo_deterministico(poblacion, K, M):
 
 def seleccion_torneo_probabilistico(poblacion, K):
     result_list = list()
-    thresholds_list = n_random(5, 10, K)
-    random_list = n_random(0, 10, K)
-    selected_positions = list(random.sample(range(0, len(poblacion)), 2*K))
+    thresholds_list = n_random(K, 5, 10)
+    random_list = n_random(K, 0, 10)
     index = 0
     while K > 0:
+        selected_positions = list(random.sample(range(0, len(poblacion)), K))
         cut = 0
         torneo_list = list()
         for individuo in poblacion:

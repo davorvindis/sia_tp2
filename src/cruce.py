@@ -1,7 +1,6 @@
 from src.helpers import *
 
 # Metodos de Cruce  (4/4)
-#    *** Devuelve 2 hijos ***
 def cruce_1p(padre1, padre2, n):
     if n > 5:
         raise IndexError("Invalid n parameter, must be <=5")
@@ -22,7 +21,7 @@ def cruce_1p(padre1, padre2, n):
 
     return child_creator(padre1, son1, son2)
 
-#    *** Devuelve 2 hijos ***
+
 def cruce_2p(padre1, padre2, punto1, punto2):
     if punto1 > 5 or punto2 > 5 or punto1 > punto2:
         raise IndexError("Invalid parameters, points should be less than 5 and point1 < point2")
@@ -44,7 +43,7 @@ def cruce_2p(padre1, padre2, punto1, punto2):
 
     return child_creator(padre1, son1, son2)
 
-#    *** Devuelve 2 hijos ***
+
 def cruce_anular(padre1, padre2, p, l):
     index = 0
     # self.armour, self.gloves, self.boots, self.weapon, self.helmet, self.height
@@ -67,7 +66,7 @@ def cruce_anular(padre1, padre2, p, l):
         index += 1
     return
 
-#    *** Devuelve 2 hijos ***
+
 def cruce_uniforme(padre1, padre2):
     index = 0
     # self.armour, self.gloves, self.boots, self.weapon, self.helmet, self.height

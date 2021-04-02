@@ -1,13 +1,12 @@
 import numpy as np
 import time
+import random
 from src.items import *
-from src.Classes import *
+from src.classes import *
 
 
 # random number generator, returns a vector with n random ints in range [low, high)
 def n_random(n, low, high):
-    # seed = abs(round(time.time())) % 100000
-    # np.random.seed(seed)
     random_numbers = np.random.randint(low, high, size=n)
     return random_numbers
 
@@ -34,7 +33,7 @@ def generate_random_character(type, n):
     i = 0
     while i < n:
         c = Warrior(heights.pop(), weapons.pop(), helmets.pop(), boots.pop(), gloves.pop(), armours.pop())
-        character_list.append(c) #before : character_set.add(c)
+        character_list.append(c)
         i += 1
 
     return character_list
@@ -43,7 +42,7 @@ def generate_random_character(type, n):
 # returns a lists with n random items of type type
 def get_n_random_items(type, n):
     item_list = list()
-    ids = sorted(n_random(n, 0, 12900))
+    ids = sorted(random.sample(range(0, 10000), n))
     cut = len(ids)
     with open("/Users/darkovindis/Desktop/Sia tps/sia_tp2/" + str(type) + ".tsv") as fp:
         for i, line in enumerate(fp):
@@ -53,4 +52,4 @@ def get_n_random_items(type, n):
                 cut -= 1
             if cut == 0:
                 return item_list
-
+    return item_list

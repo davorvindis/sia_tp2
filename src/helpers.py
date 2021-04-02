@@ -1,4 +1,4 @@
-from src.Classes import *
+from src.classes import *
 # Metodos helpers
 #    *** Devuelve 2 hijos ***
 def child_creator(parent, son1, son2):

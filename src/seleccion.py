@@ -118,7 +118,7 @@ def seleccion_torneo_probabilistico(poblacion, K):
 
 
 ###################################################################
-# [ tipo, poblacion, K, var2, var3 ]
+# [ tipo, poblacion, K, var2 ]
 # [0, 1, 2, 3, 4]
 def selection_wrapper(fn):
     def inner1(*args):

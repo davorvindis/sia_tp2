@@ -2,7 +2,7 @@ import csv
 import time
 import json
 from src.randomGenerator import *
-from src.Classes import *
+from src.classes import *
 from src.items import *
 from src.mutacion import *
 from src.seleccion import *
@@ -11,7 +11,6 @@ from src.corte import *
 
 
 # boost para leer archivos de configuracion
-
 f = open('../input/input_parameters', "r")
 data = json.load(f)
 
@@ -40,12 +39,15 @@ input_mutacion =data["mutacion"]
 mutacion_var1 = 0
 if input_mutacion == "limitada":
     mutacion_var1 = data["variables_mutacion"][0]
-
+N = data["N"]
+K = data["K"]
 
 f.close()
 
-N = 10
-K = 2
+
+############################################### Arranca
+
+
 generation_zero = generate_random_character(type, N)
 k_sons = list()
 next_generation = list()
@@ -67,14 +69,18 @@ if input_implementacion == "fill-all":
     all.extend(generation_zero)
     all.extend(k_sons)
     next_generation = seleccion(input_seleccion, all, N, seleccion_var1)
+
 elif input_implementacion == "fill-parent":
     if K > N:
         next_generation = seleccion(input_seleccion, k_sons, N, seleccion_var1)
     elif K == N:
         next_generation.append(k_sons)
-    elif K == N:
-        next_generation.append(k_sons)
-        next_generation.append(seleccion(input_seleccion, generation_zero, N-K, seleccion_var1))
+    elif K <= N:
+        next_generation.extends(k_sons)
+        next_generation.extends(seleccion(input_seleccion, generation_zero, N-K, seleccion_var1))
+
+
+
 
 for i in range(len(generation_zero)):
     print(generation_zero[i])
@@ -83,3 +89,4 @@ print("next gen")
 
 for i in range(len(next_generation)):
     print(next_generation[i])
+

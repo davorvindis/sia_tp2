@@ -1,8 +1,13 @@
 {
-  "genetic_operator" : "cruce_1p",
-  "parents_selection_1" : "elite",
-  "parents_selection_2" : "roulette",
-  "implementation_type" : "fill_all",
-  "stop_criteria" : "generations_n",
-  "genetic_operator" : "cruce_1p"
+  "cruce" : "1p",
+  "variables_cruce": ["2"],
+  "mutacion": "gen",
+  "variables_mutacion": ["1"],
+  "seleccion": "torneo_probabilistico",
+  "variables_seleccion": [],
+  "implementacion": "fill-all",
+  "corte": "generaciones",
+  "variables_corte": ["10"],
+  "n_poblacion_inicial": 100,
+  "n_maximo_poblacion": 150
 }

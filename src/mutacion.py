@@ -80,28 +80,35 @@ def mutacion_multigen_uniforme(individuo):
 
 
 def mutacion_completa(individuo):
+    
     '''Aplicar un delta al gen, en algún sentido y con alguna distribución '''
-    std = 0.2
+    std = 0.2 #Parametro externo
 
+    #Altura
     deltaHeight = individuo.height - random.gauss(mu=individuo.height, sigma=std)
     individuo.height += deltaHeight
 
-    deltaWeapon = individuo.weapon - random.gauss(mu=individuo.weapon, sigma=std)
-    individuo.weapon += deltaWeapon
+    addDeltaGen(individuo.weapon, std)
+    addDeltaGen(individuo.helmet, std)
+    addDeltaGen(individuo.boots, std)
+    addDeltaGen(individuo.gloves, std)
+    addDeltaGen(individuo.armour, std)
+	
+	return
 
-    deltaHelmet = individuo.helmet - random.gauss(mu=individuo.helmet, sigma=std)
-    individuo.helmet += deltaHelmet
 
-    deltaBoots = individuo.boots - random.gauss(mu=individuo.boots, sigma=std)
-    individuo.boots += deltaBoots
-
-    deltaGloves = individuo.gloves - random.gauss(mu=individuo.gloves, sigma=std)
-    individuo.gloves += deltaGloves
-
-    deltaArmour = individuo.armour - random.gauss(mu=individuo.armour, sigma=std)
-    individuo.armour += deltaArmour
-
-    return
+def addDeltaGen(Item, std):
+    #individuo.item.(id,fu,ag,ex,re,vi)
+    deltaFu = Item.fu - random.gauss(mu=Item.fu, sigma=std)
+    Item.fu += deltaFu
+    deltaAg = Item.ag - random.gauss(mu=Item.ag, sigma=std)
+    Item.ag += deltaAg
+    deltaEx = Item.ex - random.gauss(mu=Item.ex, sigma=std)
+    Item.ex += deltaEx
+    deltaRe = Item.re - random.gauss(mu=Item.re, sigma=std)
+    Item.re += deltaRe
+    deltaVi = Item.vi - random.gauss(mu=Item.vi, sigma=std)
+    Item.vi += deltaVi
 
 
 ###################################################################
@@ -116,7 +123,7 @@ def mutacion_wrapper(fn):
         elif args[0] == "uniforma":
             return mutacion_multigen_uniforme(args[1])
         elif args[0] == "completa":
-            return mutacion_completa(set())
+            return mutacion_completa(args[1])
 
     return inner1
 

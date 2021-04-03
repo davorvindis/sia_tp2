@@ -98,7 +98,6 @@ def mutacion_completa(individuo):
 
 
 def addDeltaGen(Item, std):
-    #individuo.item.(id,fu,ag,ex,re,vi)
     deltaFu = Item.fu - random.gauss(mu=Item.fu, sigma=std)
     Item.fu += deltaFu
     deltaAg = Item.ag - random.gauss(mu=Item.ag, sigma=std)

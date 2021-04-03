@@ -9,5 +9,7 @@
   "corte": "generaciones",
   "variables_corte": ["10"],
   "n_poblacion_inicial": 100,
-  "n_maximo_poblacion": 150
+  "n_maximo_poblacion": 150,
+  "N": 10,
+  "K": 3
 }

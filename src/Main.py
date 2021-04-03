@@ -1,24 +1,21 @@
-import csv
-import time
-import json
-from src.randomGenerator import *
-from src.classes import *
-from src.items import *
 from src.mutacion import *
 from src.seleccion import *
 from src.corte import *
 from src.cruce import *
 
-def iterate( generation ,input_cruce, cruce_var1, cruce_var2, input_seleccion, seleccion_var, input_implementacion, input_mutacion, \
-             mutacion_var, N, K ):
+
+# definicion de funcion que itera
+def iterate(generation, input_cruce, cruce_var1, cruce_var2, input_seleccion_1, seleccion_var_1, \
+            input_seleccion_2, seleccion_var_2, input_seleccion_3, seleccion_var_3, input_seleccion_4, seleccion_var_4, \
+            input_implementacion, input_mutacion, mutacion_var, N, K, A, B):
 
     k_sons = list()
     next_generation = list()
 
-    seleccionados = seleccion(input_seleccion, generation, K, seleccion_var)
+    seleccionados = seleccion(input_seleccion_1, input_seleccion_2, seleccion_var_1, seleccion_var_2, generation, K, A)
     for i in range(len(seleccionados)):
         if len(seleccionados) > 1:
-            hijo1, hijo2 = cruce(input_cruce, seleccionados[i], seleccionados[i+1], cruce_var1, cruce_var2)
+            hijo1, hijo2 = cruce(input_cruce, seleccionados[i], seleccionados[i + 1], cruce_var1, cruce_var2)
             k_sons.append(hijo1)
             k_sons.append(hijo2)
             seleccionados.remove(seleccionados[i])
@@ -31,16 +28,16 @@ def iterate( generation ,input_cruce, cruce_var1, cruce_var2, input_seleccion, s
         all = list()
         all.extend(generation)
         all.extend(k_sons)
-        next_generation = seleccion(input_seleccion, all, N, seleccion_var)
+        next_generation = seleccion(input_seleccion_3, input_seleccion_4, seleccion_var_3, seleccion_var_4, all, N, B)
 
     elif input_implementacion == "fill-parent":
         if K > N:
-            next_generation = seleccion(input_seleccion, k_sons, N, seleccion_var)
+            next_generation = seleccion(input_seleccion_3, input_seleccion_4, seleccion_var_3, seleccion_var_4, k_sons, N, B)
         elif K == N:
             next_generation.append(k_sons)
         elif K <= N:
-            next_generation.extends(k_sons)
-            next_generation.extends(seleccion(input_seleccion, generation, N-K, seleccion_var))
+            next_generation.extend(k_sons)
+            next_generation.extend(seleccion(input_seleccion_3, input_seleccion_4, seleccion_var_3, seleccion_var_4, generation, N-K , B))
 
     for i in range(len(generation)):
         print(generation[i])
@@ -51,17 +48,22 @@ def iterate( generation ,input_cruce, cruce_var1, cruce_var2, input_seleccion, s
         print(next_generation[i])
 
 
+# lector de input
+input_cruce, cruce_var1, cruce_var2, input_seleccion_1, seleccion_var_1, input_seleccion_2, seleccion_var_2, \
+input_seleccion_3, seleccion_var_3, input_seleccion_4, seleccion_var_4,input_implementacion, input_mutacion,\
+mutacion_var, input_corte, corte_var, N, K, A, B = read_input()
 
-input_cruce, cruce_var1, cruce_var2, input_seleccion, seleccion_var, input_implementacion, input_mutacion, \
-mutacion_var, input_corte, corte_var, N, K = read_input()
-
+# primer generacion
 generation_zero = generate_random_character(type, N)
 
 
+# funcion de corte
 @corte_wrapper
 def corte(*args):
-    iterate(generation_zero,input_cruce, cruce_var1, cruce_var2, input_seleccion, seleccion_var, input_implementacion, input_mutacion, \
-            mutacion_var, N, K)
+    iterate(generation_zero, input_cruce, cruce_var1, cruce_var2, input_seleccion_1, seleccion_var_1, input_seleccion_2,\
+            seleccion_var_2, input_seleccion_3, seleccion_var_3, input_seleccion_4, seleccion_var_4, \
+            input_implementacion, input_mutacion, mutacion_var, N, K, A, B)
 
 
+# start
 corte(input_corte, corte_var)

@@ -67,10 +67,25 @@ def read_input():
     if input_corte in ["generaciones", "tiempo"]:
         corte_var = data["variables_corte"][0]
 
-    input_seleccion = data["seleccion"]
-    seleccion_var = 0
-    if input_seleccion == "torneo_deterministico":
-        seleccion_var = data["variables_seleccion"][0]
+    input_seleccion_1 = data["seleccion_1"]
+    seleccion_var_1 = 0
+    if input_seleccion_1 == "torneo_deterministico":
+        seleccion_var_1 = data["variables_seleccion_1"][0]
+
+    input_seleccion_2 = data["seleccion_2"]
+    seleccion_var_2 = 0
+    if input_seleccion_2 == "torneo_deterministico":
+        seleccion_var_2 = data["variables_seleccion_2"][0]
+
+    input_seleccion_3 = data["seleccion_3"]
+    seleccion_var_3 = 0
+    if input_seleccion_3 == "torneo_deterministico":
+        seleccion_var_3 = data["variables_seleccion_3"][0]
+
+    input_seleccion_4 = data["seleccion_4"]
+    seleccion_var_4 = 0
+    if input_seleccion_4 == "torneo_deterministico":
+        seleccion_var_4 = data["variables_seleccion_4"][0]
 
     input_implementacion = data["implementacion"]
 
@@ -81,8 +96,11 @@ def read_input():
 
     N = data["N"]
     K = data["K"]
+    A = data["A"]
+    B = data["B"]
 
     f.close()
 
-    return input_cruce, cruce_var1, cruce_var2, input_seleccion, seleccion_var, input_implementacion, input_mutacion, \
-           mutacion_var, input_corte, corte_var, N, K
+    return input_cruce, cruce_var1, cruce_var2, input_seleccion_1, seleccion_var_1, input_seleccion_2, seleccion_var_2, \
+           input_seleccion_3, seleccion_var_3, input_seleccion_4, seleccion_var_4, \
+           input_implementacion, input_mutacion, mutacion_var, input_corte, corte_var, N, K, A, B

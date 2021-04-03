@@ -1,6 +1,7 @@
 from src.helpers import *
 from src.randomGenerator import *
-import random
+import random, math
+
 
 
 ###################################################################
@@ -68,7 +69,7 @@ def seleccion_ruleta(poblacion, K):
 
 def seleccion_torneo_deterministico(poblacion, K, M):
     return_list = list()
-    selected_positions = sorted(n_random(M*K, 0, len(poblacion)))
+    selected_positions = sorted(n_random(M * K, 0, len(poblacion)))
     while K > 0:
         cut = 0
         torneo_list = list()
@@ -109,31 +110,31 @@ def seleccion_torneo_probabilistico(poblacion, K):
 
     return result_list
 
-
     #  Metodos de implementacion (0/2)
 
 
 ###################################################################
 # [ tipo, poblacion, K, var2 ]
 # [0, 1, 2, 3, 4]
-def selection_wrapper(fn):
-    def inner1(*args):
-        if args[0] == "torneo_deterministico":
-            return seleccion_torneo_deterministico(args[1], args[2], args[3])
-        elif args[0] == "torneo_probabilistico":
-            return seleccion_torneo_probabilistico(args[1], args[2])
-        elif args[0] == "universal":
-            return seleccion_universal(args[1], args[2])
-        elif args[0] == "ruleta":
-            return seleccion_ruleta(args[1], args[2])
-        elif args[0] == "ranking":
-            return seleccion_ranking(args[1], args[2])
-        # elif args[0] == "boltzmann":
-        # elif args[0] == "elite":
-
-    return inner1
 
 # Funcion que se va a wrappear en el criterio de corte, va a correr en loop
-@selection_wrapper
-def seleccion(*args):
-    print("1")
+def seleccion(input_seleccion_1, input_seleccion_2, seleccion_var_1, seleccion_var_2, generation, K, A):
+    selected = list()
+    selected.extend(select(input_seleccion_1, generation, seleccion_var_1, math.ceil(A*K)))
+    selected.extend(select(input_seleccion_2, generation, seleccion_var_2, math.floor((1-A)*K)))
+    return selected
+
+
+def select(metodo, poblacion, variable, N):
+    if metodo == "torneo_deterministico":
+        return seleccion_torneo_deterministico(poblacion, N, int(variable))
+    elif metodo == "torneo_probabilistico":
+        return seleccion_torneo_probabilistico(poblacion, N)
+    elif metodo == "universal":
+        return seleccion_universal(poblacion, N)
+    elif metodo == "ruleta":
+        return seleccion_ruleta(poblacion, N)
+    elif metodo == "ranking":
+        return seleccion_ranking(poblacion, N)
+    # elif args[0] == "boltzmann":
+    # elif args[0] == "elite":

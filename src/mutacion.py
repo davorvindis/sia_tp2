@@ -1,4 +1,4 @@
-from src.helpers import *
+# from src.helpers import *
 from src.randomGenerator import *
 
 # Metodos de Mutacion  (4/4)
@@ -27,17 +27,16 @@ def mutacion_gen(individuo):
     return
 
 
-def mutacion_multigen_limitada(individuo, cantidad_genes):
-    # PAUSA, LE FALTA TERMINARLO
+def mutacion_multigen_limitada(individuo, cantidad_genes_a_modificar):
+    # Por cada llamada a la funcion de intenta mutar un gen al azar. Y, cada gen tiene probabilidad de mutar Pm.
 
     # Probabilidad de mutacion
     pm = 0.3
     # height, weapon, helmet, boots, gloves, armour
     # Hay 2 opciones. 1- Nuevo y random o 2- Modificar el existente con un delta (considerando una distribucion)
-    genes_modificados = 0
-    lista_de_genes_modificados = list()
+    intento_de_modificaciones = 0
 
-    while genes_modificados < cantidad_genes:
+    while intento_de_modificaciones < cantidad_genes_a_modificar:
         # Gen a mutar
         pg = np.random.randint(1, 6, size=None, dtype='l')
         rand = np.random.uniform(0.0, 1.0, None)
@@ -54,7 +53,7 @@ def mutacion_multigen_limitada(individuo, cantidad_genes):
                 individuo.gloves = get_n_random_items("guantes", 1).pop()
             if pg == 6:
                 individuo.armour = get_n_random_items("pecheras", 1).pop()
-            cantidad_genes += 1
+        intento_de_modificaciones += 1
 
     return
 
@@ -81,7 +80,7 @@ def mutacion_multigen_uniforme(individuo):
 
 def mutacion_completa(individuo):
     
-    '''Aplicar un delta al gen, en algún sentido y con alguna distribución '''
+    # Aplicar un delta al gen, en algún sentido y con alguna distribución
     std = 0.2 #Parametro externo
 
     #Altura
@@ -93,8 +92,7 @@ def mutacion_completa(individuo):
     addDeltaGen(individuo.boots, std)
     addDeltaGen(individuo.gloves, std)
     addDeltaGen(individuo.armour, std)
-	
-	return
+    return
 
 
 def addDeltaGen(Item, std):
@@ -108,7 +106,7 @@ def addDeltaGen(Item, std):
     Item.re += deltaRe
     deltaVi = Item.vi - random.gauss(mu=Item.vi, sigma=std)
     Item.vi += deltaVi
-
+    return
 
 ###################################################################
 # [ tipo, individuo, var1 ]

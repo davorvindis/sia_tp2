@@ -3,7 +3,7 @@
   "variables_cruce": ["2"],
   "mutacion": "gen",
   "variables_mutacion": ["1"],
-  "seleccion_1": "torneo_probabilistico",
+  "seleccion_1": "elite ",
   "variables_seleccion_1": [],
   "seleccion_2": "universal",
   "variables_seleccion_2": [],

@@ -172,5 +172,7 @@ def select(metodo, poblacion, variable, N):
         return seleccion_ruleta(poblacion, N)
     elif metodo == "ranking":
         return seleccion_ranking(poblacion, N)
-    # elif args[0] == "boltzmann":
-    # elif args[0] == "elite":
+    elif metodo == "boltzmann":
+        return seleccion_boltzmann(poblacion, N)
+    elif metodo == "elite":
+        return seleccion_elite(poblacion, N)

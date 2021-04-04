@@ -56,7 +56,7 @@ def cruce_anular(padre1, padre2, p, l):
         son1.append(padre1_vec[index])
         son2.append(padre2_vec[index])
         index += 1
-    while index < p + l:
+    while index < p + (l+1): #add +1
         if index < 6:
             son1.append(padre2_vec[index])
             son2.append(padre1_vec[index])
@@ -64,7 +64,7 @@ def cruce_anular(padre1, padre2, p, l):
             son1.append(padre2_vec[index - 5])
             son2.append(padre1_vec[index - 5])
         index += 1
-    return
+    return child_creator(padre1, son1, son2) #add return
 
 
 def cruce_uniforme(padre1, padre2):

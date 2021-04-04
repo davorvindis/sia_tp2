@@ -1,6 +1,6 @@
 from src.helpers import *
 from src.randomGenerator import *
-import random, math
+import random, math, copy
 
 
 ###################################################################
@@ -123,7 +123,7 @@ def seleccion_elite(poblacion, k):
     while aux <= k:
         if aux == 0 or (aux % total) == 0:
             lista_temporal = poblacion_ordenada_por_fitness.copy()
-        rta.append(lista_temporal.pop())
+        rta.append(lista_temporal.pop()[1])
         aux += 1
 
     return rta
@@ -154,9 +154,14 @@ def seleccion_boltzmann(poblacion, K):
 
 # Funcion que se va a wrappear en el criterio de corte, va a correr en loop
 def seleccion(input_seleccion_1, input_seleccion_2, seleccion_var_1, seleccion_var_2, generation, K, A):
+    pool = copy.deepcopy(generation)
     selected = list()
-    selected.extend(select(input_seleccion_1, generation, seleccion_var_1, math.ceil(A * K)))
-    selected.extend(select(input_seleccion_2, generation, seleccion_var_2, math.floor((1 - A) * K)))
+    selected_in_method_1 = select(input_seleccion_1, pool, seleccion_var_1, math.ceil(A * K))
+    for i in range(len(selected_in_method_1)):
+        if selected_in_method_1[i] in pool:
+            pool.remove(selected_in_method_1[i])
+    selected.extend(selected_in_method_1)
+    selected.extend(select(input_seleccion_2, pool, seleccion_var_2, math.floor((1 - A) * K)))
     return selected
 
 

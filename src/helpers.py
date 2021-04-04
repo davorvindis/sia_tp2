@@ -51,7 +51,7 @@ def boltzmann_fitness(poblacion):
         aux2 = aux1 / avg
         rta.append(aux2)
 
-    return
+    return rta
 
 def pseudo_fitness(poblacion):
     N = len(poblacion)
@@ -86,10 +86,9 @@ def read_input():
 
     input_corte = data["corte"]
     corte_var = 0
-    if input_corte in ["generaciones", "tiempo", "contenido"]:
+    if input_corte in ["generaciones", "tiempo", "contenido", "aceptable"]:
         corte_var = data["variables_corte"][0]
-    if input_corte in ["aceptable"]:
-        corte_var = float(data["corte_threshold"][0])
+
 
     input_seleccion_1 = data["seleccion_1"]
     seleccion_var_1 = 0

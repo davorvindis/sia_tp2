@@ -99,7 +99,7 @@ def cruce_wrapper(fn):
             return cruce_2p(args[1], args[2], args[3], args[4])
         elif args[0] == "anular":
             return cruce_anular(args[1], args[2], args[3], args[4])
-        elif args[0] == "ruleta":
+        elif args[0] == "uniforme":
             return cruce_uniforme(args[1], args[2])
 
     return inner1

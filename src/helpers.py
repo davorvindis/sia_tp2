@@ -1,5 +1,6 @@
 from src.classes import *
 import json
+import math
 
 
 # Metodos helpers
@@ -33,6 +34,24 @@ def relative_fitness(poblacion):
 def accumulative_fitness(relativeFitness):
     return np.cumsum(relativeFitness)
 
+def boltzmann_fitness(poblacion):
+    rta = list()
+    # Temperatura. Debe calcularse con una funcion pero nose como
+    T = 100
+    counter = 0
+    acum_sum = 0
+    for individuo in poblacion:
+        counter += 1
+        acum_sum += math.exp(getFitness(individuo) / T)
+
+    avg = acum_sum / counter
+
+    for individuo in poblacion:
+        aux1 = math.exp(getFitness(individuo) / T)
+        aux2 = aux1 / avg
+        rta.append(aux2)
+
+    return
 
 def pseudo_fitness(poblacion):
     N = len(poblacion)

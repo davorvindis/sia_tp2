@@ -15,12 +15,12 @@ def seleccion_ranking(poblacion, K):
     selected = []
 
     for ri in r:
-        if (ri < pseudoFitness[0]):
+        if ri < pseudoFitness[0]:
             selected.append(poblacion[0])
             if len(selected) == K:
                 return selected
         for index in range(0, len(pseudoFitness) - 1):
-            if (pseudoFitness[index] < ri <= pseudoFitness[index + 1]):
+            if pseudoFitness[index] < ri <= pseudoFitness[index + 1]:
                 selected.append(poblacion[index + 1])
                 if len(selected) == K:
                     return selected
@@ -130,9 +130,21 @@ def seleccion_elite(poblacion, k):
     return rta
 
 
-def seleccion_boltzmann():
+def seleccion_boltzmann(poblacion, K):
+    pseudoFitness = boltzmann_fitness(poblacion)
+    r = np.random.uniform(0, 1, K)
+    selected = []
 
-    return
+    for ri in r:
+        if ri < pseudoFitness[0]:
+            selected.append(poblacion[0])
+            if len(selected) == K:
+                return selected
+        for index in range(0, len(pseudoFitness) - 1):
+            if pseudoFitness[index] < ri <= pseudoFitness[index + 1]:
+                selected.append(poblacion[index + 1])
+                if len(selected) == K:
+                    return selected
 
     #  Metodos de implementacion (0/2)
 

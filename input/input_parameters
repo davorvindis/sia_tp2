@@ -14,6 +14,7 @@
   "implementacion": "fill-all",
   "corte": "generaciones",
   "variables_corte": ["4"],
+  "corte_threshold": ["0.001"],
   "N": 10,
   "K": 3,
   "A": 0.3,

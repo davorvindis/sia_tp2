@@ -47,6 +47,9 @@ def pseudo_fitness(poblacion):
 def getFitness(e):
     return e.fitness()
 
+def best_fitness(poblacion):
+    return max([getFitness(individuo) for individuo in poblacion])
+
 
 # boost para leer archivos de configuracion
 def read_input():
@@ -64,8 +67,10 @@ def read_input():
 
     input_corte = data["corte"]
     corte_var = 0
-    if input_corte in ["generaciones", "tiempo"]:
+    if input_corte in ["generaciones", "tiempo", "contenido"]:
         corte_var = data["variables_corte"][0]
+    if input_corte in ["aceptable"]:
+        corte_var = float(data["corte_threshold"][0])
 
     input_seleccion_1 = data["seleccion_1"]
     seleccion_var_1 = 0

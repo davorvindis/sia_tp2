@@ -3,7 +3,6 @@ from src.randomGenerator import *
 import random, math
 
 
-
 ###################################################################
 
 # Metodos de seleccion  (4/6)
@@ -110,6 +109,31 @@ def seleccion_torneo_probabilistico(poblacion, K):
 
     return result_list
 
+
+def seleccion_elite(poblacion, k):
+    rta = list()
+    poblacion_ordenada_por_fitness = list()
+    total = 0
+    for individuo in poblacion:
+        poblacion_ordenada_por_fitness.append((getFitness(individuo), individuo))
+        total += 1
+    poblacion_ordenada_por_fitness.sort(reverse=True)
+
+    lista_temporal = list()
+    aux = 0
+    while aux <= k:
+        if aux == 0 or (aux % total) == 0:
+            lista_temporal = poblacion_ordenada_por_fitness.copy()
+        rta.append(lista_temporal.pop())
+        aux += 1
+
+    return rta
+
+
+def seleccion_boltzmann():
+
+    return
+
     #  Metodos de implementacion (0/2)
 
 
@@ -120,8 +144,8 @@ def seleccion_torneo_probabilistico(poblacion, K):
 # Funcion que se va a wrappear en el criterio de corte, va a correr en loop
 def seleccion(input_seleccion_1, input_seleccion_2, seleccion_var_1, seleccion_var_2, generation, K, A):
     selected = list()
-    selected.extend(select(input_seleccion_1, generation, seleccion_var_1, math.ceil(A*K)))
-    selected.extend(select(input_seleccion_2, generation, seleccion_var_2, math.floor((1-A)*K)))
+    selected.extend(select(input_seleccion_1, generation, seleccion_var_1, math.ceil(A * K)))
+    selected.extend(select(input_seleccion_2, generation, seleccion_var_2, math.floor((1 - A) * K)))
     return selected
 
 

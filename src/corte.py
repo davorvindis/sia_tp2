@@ -32,7 +32,7 @@ def corte_wrapper(fn):
                     
         if args[0] == "aceptable":
             '''|fitness(k-1) - fitness(k)| < treshold -> STOP'''
-            treshold = args[1]
+            treshold = float(args[1])
             while True:
                 bestFitnessOld, bestFitnessNew = fn()
                 delta_Fitness = abs(bestFitnessOld - bestFitnessNew)

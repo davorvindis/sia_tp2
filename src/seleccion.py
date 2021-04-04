@@ -5,9 +5,8 @@ import random, math
 
 ###################################################################
 
-# Metodos de seleccion  (4/6)
-#    * Elite
-#    * Boltzmann
+# Metodos de seleccion  (6/6)
+
 
 def seleccion_ranking(poblacion, K):
     pseudoFitness = pseudo_fitness(poblacion)

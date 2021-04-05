@@ -16,7 +16,7 @@ def corte_wrapper(fn):
                 fn()
                 i -= 1
                 
-   		if args[0] == "contenido":
+        if args[0] == "contenido":
             '''El mejor fitness no cambia en una cantidad de generaciones'''
             CtdGeneraciones = int(args[1])
             count = 0
@@ -31,31 +31,29 @@ def corte_wrapper(fn):
                     print("STOP")
                     break
 					
-		if args[0] == "estructura":
-		'''Si el delta fitness de K individuos de la poblacion < threshold en N generaciones -> STOP'''
-			
-			CtdGeneraciones = int(args[1])
-			threshold       = float(args[2])
-			K_individuos    = int(args[3])
-			count = 0
-			
-			while True:
-				bestFitnessOld, bestFitnessNew, genOld, genNew = fn()
-				Infonew = Info_Generation(genNew, K_individuos)
-				Infold = Info_Generation(genOld, K_individuos)
-				DeltaGeneration = Diff_Generation(Infold, Infonew, threshold)
-				
-				if DeltaGeneration: #si DeltaGeneration < threshold
-					count += 1
-				else:
-					count = 0
-				if count == CtdGeneraciones:
-					print("STOP")
-					break
+        if args[0] == "estructura":
+            '''Si el delta fitness de K individuos de la poblacion < threshold en N generaciones -> STOP'''
+            CtdGeneraciones = int(args[1])
+            threshold       = float(args[2])
+            K_individuos    = int(args[3])
+            count = 0
+            while True:
+                bestFitnessOld, bestFitnessNew, genOld, genNew = fn()
+                Infonew = Info_Generation(genNew, K_individuos)
+                Infold = Info_Generation(genOld, K_individuos)
+                DeltaGeneration = Diff_Generation(Infold, Infonew, threshold)
+                
+                if DeltaGeneration: #si DeltaGeneration < threshold
+                    count += 1
+                else:
+                    count = 0
+                if count == CtdGeneraciones:
+                    print("STOP")
+                    break
 					
                     
         if args[0] == "aceptable":
-            '''|fitness(k-1) - fitness(k)| < treshold -> STOP'''
+        '''|fitness(k-1) - fitness(k)| < treshold -> STOP'''
             threshold = float(args[2])
             while True:
                 bestFitnessOld, bestFitnessNew = fn()

@@ -86,8 +86,12 @@ def read_input():
 
     input_corte = data["corte"]
     corte_var = 0
+    threshold_var = 0
+    individuo_var = 0
     if input_corte in ["generaciones", "tiempo", "contenido", "aceptable"]:
-        corte_var = data["variables_corte"][0]
+		corte_var = data["variables_corte"][0]
+		threshold_var = data["corte_threshold"][0]
+		individuo_var = data["k_individuos"][0]
 
 
     input_seleccion_1 = data["seleccion_1"]
@@ -124,6 +128,8 @@ def read_input():
 
     f.close()
 
-    return input_cruce, cruce_var1, cruce_var2, input_seleccion_1, seleccion_var_1, input_seleccion_2, seleccion_var_2, \
-           input_seleccion_3, seleccion_var_3, input_seleccion_4, seleccion_var_4, \
-           input_implementacion, input_mutacion, mutacion_var, input_corte, corte_var, N, K, A, B
+    return input_cruce, cruce_var1, cruce_var2, input_seleccion_1, seleccion_var_1,\
+	       input_seleccion_2, seleccion_var_2, input_seleccion_3, seleccion_var_3, \
+           input_seleccion_4, seleccion_var_4, input_implementacion, input_mutacion,\
+           mutacion_var, input_corte, corte_var,\
+           threshold_var, individuo_var, N, K, A, B

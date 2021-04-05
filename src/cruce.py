@@ -46,6 +46,8 @@ def cruce_2p(padre1, padre2, punto1, punto2):
 
 def cruce_anular(padre1, padre2, p, l):
     index = 0
+    p = int(p)
+    l = int(l)
     # self.armour, self.gloves, self.boots, self.weapon, self.helmet, self.height
     padre1_vec = padre1.vectorize()
     padre2_vec = padre2.vectorize()

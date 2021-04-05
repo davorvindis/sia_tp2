@@ -56,7 +56,7 @@ def corte_wrapper(fn):
         '''|fitness(k-1) - fitness(k)| < treshold -> STOP'''
             threshold = float(args[2])
             while True:
-                bestFitnessOld, bestFitnessNew = fn()
+                bestFitnessOld, bestFitnessNew, genOld, genNew = fn()
                 delta_Fitness = abs(bestFitnessOld - bestFitnessNew)
                 if delta_Fitness < threshold:
                     print("STOP")

@@ -6,8 +6,9 @@ from src.cruce import *
 
 # definicion de funcion que itera
 def iterate(generation, input_cruce, cruce_var1, cruce_var2, input_seleccion_1, seleccion_var_1, \
-            input_seleccion_2, seleccion_var_2, input_seleccion_3, seleccion_var_3, input_seleccion_4, seleccion_var_4, \
-            input_implementacion, input_mutacion, mutacion_var, N, K, A, B):
+            input_seleccion_2, seleccion_var_2, input_seleccion_3, seleccion_var_3,\
+			input_seleccion_4, seleccion_var_4, input_implementacion, input_mutacion,\
+			mutacion_var, input_corte, corte_var, threshold_var, individuo_var , N, K, A, B):
 
     k_sons = list()
     next_generation = list()
@@ -53,13 +54,14 @@ def iterate(generation, input_cruce, cruce_var1, cruce_var2, input_seleccion_1, 
     bestFitnessOld = best_fitness(generation)
     bestFitnessNew = best_fitness(next_generation)
     
-    return bestFitnessOld, bestFitnessNew
+    return bestFitnessOld, bestFitnessNew, generation, next_generation
 
 
 # lector de input
-input_cruce, cruce_var1, cruce_var2, input_seleccion_1, seleccion_var_1, input_seleccion_2, seleccion_var_2, \
-input_seleccion_3, seleccion_var_3, input_seleccion_4, seleccion_var_4,input_implementacion, input_mutacion,\
-mutacion_var, input_corte, corte_var, N, K, A, B = read_input()
+input_cruce, cruce_var1, cruce_var2, input_seleccion_1, seleccion_var_1,\
+input_seleccion_2, seleccion_var_2, input_seleccion_3, seleccion_var_3, \
+input_seleccion_4, seleccion_var_4, input_implementacion, input_mutacion,\
+mutacion_var, input_corte, corte_var, threshold_var, individuo_var, N, K, A, B = read_input()
 
 # primer generacion
 generation_zero = generate_random_character(type, N)
@@ -69,12 +71,13 @@ historic_generations.append(generation_zero)
 # funcion de corte
 @corte_wrapper
 def corte(*args):
-    bestFitnessOld,bestFitnessNew=iterate(historic_generations[-1], input_cruce, cruce_var1, cruce_var2, input_seleccion_1, seleccion_var_1, input_seleccion_2,\
+    bestFitnessOld, bestFitnessNew, generation, next_generation = iterate(historic_generations[-1],\
+			input_cruce, cruce_var1, cruce_var2, input_seleccion_1, seleccion_var_1, input_seleccion_2,\
             seleccion_var_2, input_seleccion_3, seleccion_var_3, input_seleccion_4, seleccion_var_4, \
-            input_implementacion, input_mutacion, mutacion_var, N, K, A, B)
-    return bestFitnessOld, bestFitnessNew
+            input_implementacion, input_mutacion, mutacion_var, input_corte, corte_var, threshold_var, individuo_var,  N, K, A, B)
+    return bestFitnessOld, bestFitnessNew, generation, next_generation
 
 
 # start
-corte(input_corte, corte_var)
+corte(input_corte, corte_var, threshold_var, individuo_var)
 

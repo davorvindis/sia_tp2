@@ -80,7 +80,9 @@ def read_input():
     cruce_var2 = 0
     if input_cruce == "1p":
         cruce_var1 = data["variables_cruce"][0]
-    elif input_cruce == ["2p", "anular"]:
+    elif input_cruce in ["2p", "anular"]: #bug fix
+	#if 2p -> (P1, P2)
+	#if anular -> (P, L)
         cruce_var1 = data["variables_cruce"][0]
         cruce_var2 = data["variables_cruce"][1]
 

@@ -69,6 +69,13 @@ def getFitness(e):
 def best_fitness(poblacion):
     return max([getFitness(individuo) for individuo in poblacion])
 
+def menor_fitness(poblacion):
+    return min([getFitness(individuo) for individuo in poblacion])
+
+def avg_fitness(poblacion):
+    T = [getFitness(individuo) for individuo in poblacion]
+    return sum(T)/len(T)
+
 
 # boost para leer archivos de configuracion
 def read_input():

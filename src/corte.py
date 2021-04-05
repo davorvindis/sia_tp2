@@ -16,7 +16,7 @@ def corte_wrapper(fn):
                 fn()
                 i -= 1
                 
-        if args[0] == "contenido":
+   		if args[0] == "contenido":
             '''El mejor fitness no cambia en una cantidad de generaciones'''
             CtdGeneraciones = int(args[1])
             count = 0
@@ -32,7 +32,7 @@ def corte_wrapper(fn):
                     break
 					
 		if args[0] == "estructura":
-			'''Si el delta fitness de K individuos de la poblacion < threshold en N generaciones -> STOP'''
+		'''Si el delta fitness de K individuos de la poblacion < threshold en N generaciones -> STOP'''
 			
 			CtdGeneraciones = int(args[1])
 			threshold       = float(args[2])

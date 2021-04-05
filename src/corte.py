@@ -21,7 +21,7 @@ def corte_wrapper(fn):
             CtdGeneraciones = int(args[1])
             count = 0
             while True:
-                bestFitnessOld, bestFitnessNew = fn()
+                bestFitnessOld, bestFitnessNew, genOld, genNew = fn()
                 delta_Fitness = abs(bestFitnessOld - bestFitnessNew)
                 if (delta_Fitness == 0):
                     count += 1

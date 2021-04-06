@@ -118,16 +118,16 @@ def seleccion_elite(poblacion, k):
     poblacion_ordenada_por_fitness = list()
     total = 0
     for individuo in poblacion:
-        poblacion_ordenada_por_fitness.append((getFitness(individuo), individuo))
+        poblacion_ordenada_por_fitness.append(individuo)
         total += 1
-    poblacion_ordenada_por_fitness.sort(reverse=False)
+    poblacion_ordenada_por_fitness.sort(reverse=False, key=getFitness)
 
     lista_temporal = list()
     aux = 0
     while aux < k:
         if aux == 0 or (aux % total) == 0:
             lista_temporal = poblacion_ordenada_por_fitness.copy()
-        rta.append(lista_temporal.pop()[1])
+        rta.append(lista_temporal.pop())
         aux += 1
 
     return rta

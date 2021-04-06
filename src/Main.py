@@ -2,8 +2,23 @@ from src.mutacion import *
 from src.seleccion import *
 from src.corte import *
 from src.cruce import *
-from matplotlib import pyplot as plt
+import matplotlib.pyplot as plt
 
+
+lista_de_menores_fitness = list()
+lista_de_promedio_fitness = list()
+lista_de_mayores_fitness = list()
+# ax1.legend()
+# ax1.set_title('Fitness Minimo')
+# ax1.set_ylabel('Fitness')
+# ax1.set_xlabel('Number of generation')
+# ax1.set(xlim=(0, 20), ylim=(0, 30))
+
+# ax2.legend()
+# ax2.set_title('Fitness Promedio')
+# ax2.set_ylabel('Fitness')
+# ax2.set_xlabel('Number of generation')
+# ax2.set(xlim=(0, 20), ylim=(0, 30))
 
 # definicion de funcion que itera
 def iterate(generation, input_cruce, cruce_var1, cruce_var2, input_seleccion_1, seleccion_var_1, \
@@ -46,55 +61,48 @@ def iterate(generation, input_cruce, cruce_var1, cruce_var2, input_seleccion_1, 
     for i in range(len(generation)):
         print(generation[i])
 
-    # Start of Plot
-    # Set up
-    flag = True
-    if flag:
-        plt.style.use('seaborn')
-        fig1, ax1 = plt.subplots()
-        ax1.legend()
-        ax1.set_title('Fitness Minimo')
-        ax1.set_ylabel('Fitness')
-        ax1.set_xlabel('Number of generation')
 
-        fig2, ax2 = plt.subplots()
-        ax2.legend()
-        ax2.set_title('Fitness Promedio')
-        ax2.set_ylabel('Fitness')
-        ax2.set_xlabel('Number of generation')
+    plt.style.use('seaborn')
+    plt.cla()
+    lista_de_menores_fitness.append(menor_fitness(generation))
+    lista_de_promedio_fitness.append(avg_fitness(generation))
+    lista_de_mayores_fitness.append(best_fitness(generation))
+    plt.plot(range(0, len(historic_generations)), lista_de_menores_fitness, label="Minimum Fitness")
+    plt.plot(range(0, len(historic_generations)), lista_de_promedio_fitness, label="Average Fitness")
+    plt.plot(range(0, len(historic_generations)), lista_de_mayores_fitness, label="Maximum Fitness")
+    plt.title('Fitness Reports')
+    plt.ylabel('Fitness')
+    plt.xlabel('Number of generation')
+    plt.legend()
+    # plt.show()
 
-        counter = 0
-        flag = False
-    # Set up end
-    # Expand and scatter one point
-    once = True
-    if once:
-        ax1.set(xlim=(0, len(historic_generations)), ylim=(0, 50))
-        ax1.scatter(counter, menor_fitness(generation), color='r', label="F")
-        print(menor_fitness(generation))
-        ax2.set(xlim=(0, len(historic_generations)), ylim=(0, 50))
-        ax2.scatter(counter, avg_fitness(generation), color='b')
-        print(avg_fitness(generation))
-        counter += 1
-        once = False
-    # End of plot
+    # fig1, ax1 = plt.subplots()
+    # fig2, ax2 = plt.subplots()
+    # plt.style.use('seaborn')
+    # plt.cla()
+    # lista_de_menores_fitness.append(menor_fitness(generation))
+    # lista_de_promedio_fitness.append(avg_fitness(generation))
+    # ax1.plot(range(0, len(historic_generations)), lista_de_menores_fitness, label="Minimum Fitness")
+    # ax1.plot(range(0, len(historic_generations)), lista_de_promedio_fitness, label="Average Fitness")
+    # ax2.plot(range(0, len(historic_generations)), lista_de_promedio_fitness, label="Average Fitness")
+    # ax1.set_title('Fitness Minimo')
+    # ax1.set_ylabel('Fitness')
+    # ax1.set_xlabel('Number of generation')
+    # ax1.set(xlim=(0, 20), ylim=(0, 30))
+    # ax1.legend()
+    # ax2.set_title('Fitness Promedio')
+    # ax2.set_ylabel('Fitness')
+    # ax2.set_xlabel('Number of generation')
+    # ax2.set(xlim=(0, 20), ylim=(0, 30))
+    # ax2.legend()
+    # plt.show()
+
     print("next gen")
 
     for i in range(len(next_generation)):
         print(next_generation[i])
 
     historic_generations.append(next_generation)
-
-
-    # Expand and scatter one point
-    ax1.set(xlim=(0, len(historic_generations)), ylim=(0, 50))
-    ax1.scatter(counter, menor_fitness(next_generation), color='r', label="F")
-    print(menor_fitness(next_generation))
-    ax2.set(xlim=(0, len(historic_generations)), ylim=(0, 50))
-    ax2.scatter(counter, avg_fitness(next_generation), color='b')
-    print(avg_fitness(next_generation))
-    counter += 1
-    # End of plot
 
     bestFitnessOld = best_fitness(generation)
     bestFitnessNew = best_fitness(next_generation)
@@ -132,6 +140,5 @@ def corte(*args):
 
 # start
 corte(input_corte, corte_var, threshold_var, individuo_var)
-# Show plot
-plt.tight_layout()
 plt.show()
+print("FINISH")

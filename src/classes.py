@@ -79,7 +79,12 @@ class Character:
 
 
 class Warrior(Character):
-    def __init__(self, height, weapon, helmet, boots, gloves, armour):
+    def __init__(self, h, weapon, helmet, boots, gloves, armour):
+        if isinstance(h, int) or isinstance(h, float):
+            height = h
+        else:
+            height = h.pop()
+
         self.atm = 0.7 - np.power((3 * height - 5), 4) + np.power((3 * height - 5), 2) + height / 4
         self.dem = 1.9 + np.power((2.5 * height - 4.16), 4) - np.power((2.5 * height - 4.16), 2) - 3 * height / 10
         self.height = height

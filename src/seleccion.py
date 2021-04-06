@@ -1,6 +1,6 @@
 from src.helpers import *
 from src.randomGenerator import *
-import random, math, copy
+import random, math, copy, numpy as np
 
 
 ###################################################################
@@ -51,7 +51,7 @@ def seleccion_ruleta(poblacion, K):
     fitnessAcumulado = accumulative_fitness(fitnessRelativo)
 
     r = np.random.uniform(0, 1, K)
-    selected = []
+    selected = list()
 
     for ri in r:
         if (ri < fitnessAcumulado[0]):
@@ -86,16 +86,17 @@ def seleccion_torneo_deterministico(poblacion, K, M):
 
 
 def seleccion_torneo_probabilistico(poblacion, K):
+    aux = copy.deepcopy(K)
     result_list = list()
     thresholds_list = n_random(K, 5, 10)
     random_list = n_random(K, 0, 10)
     index = 0
     while K > 0:
-        selected_positions = list(random.sample(range(0, len(poblacion)), 2))
+        selected_positions = list(random.sample(range(0, len(poblacion)-1), 2))
         torneo_list = list()
         for individuo in poblacion:
             i = poblacion.index(individuo)
-            if poblacion.index(individuo) in selected_positions:
+            if i in selected_positions:
                 selected_positions.remove(i)
                 torneo_list.append(individuo)
         torneo_list.sort(reverse=True, key=getFitness)
@@ -103,7 +104,10 @@ def seleccion_torneo_probabilistico(poblacion, K):
         if random_list[index] < thresholds_list[index]:
             result_list.append(torneo_list[0])
         else:
-            result_list.append(torneo_list[1])
+            if len(torneo_list) < 2:
+                result_list.append(torneo_list[0])
+            else:
+                result_list.append(torneo_list[1])
         index += 1
 
     return result_list
@@ -154,12 +158,14 @@ def seleccion_boltzmann(poblacion, K):
 def seleccion(input_seleccion_1, input_seleccion_2, seleccion_var_1, seleccion_var_2, generation, K, A):
     pool = copy.deepcopy(generation)
     selected = list()
-    selected_in_method_1 = select(input_seleccion_1, pool, seleccion_var_1, math.ceil(A * K))
+    ceil = math.ceil(A * K)
+    selected_in_method_1 = select(input_seleccion_1, pool, seleccion_var_1, ceil)
     for i in range(len(selected_in_method_1)):
         if selected_in_method_1[i] in pool:
             pool.remove(selected_in_method_1[i])
     selected.extend(selected_in_method_1)
-    selected.extend(select(input_seleccion_2, pool, seleccion_var_2, math.floor((1 - A) * K)))
+    floor = math.floor((1 - A) * K)
+    selected.extend(select(input_seleccion_2, pool, seleccion_var_2, floor))
     return selected
 
 

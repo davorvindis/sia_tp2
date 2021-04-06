@@ -116,11 +116,11 @@ def seleccion_elite(poblacion, k):
     for individuo in poblacion:
         poblacion_ordenada_por_fitness.append((getFitness(individuo), individuo))
         total += 1
-    poblacion_ordenada_por_fitness.sort(reverse=True)
+    poblacion_ordenada_por_fitness.sort(reverse=False)
 
     lista_temporal = list()
     aux = 0
-    while aux <= k:
+    while aux < k:
         if aux == 0 or (aux % total) == 0:
             lista_temporal = poblacion_ordenada_por_fitness.copy()
         rta.append(lista_temporal.pop()[1])
@@ -144,8 +144,6 @@ def seleccion_boltzmann(poblacion, K):
                 selected.append(poblacion[index + 1])
                 if len(selected) == K:
                     return selected
-
-    #  Metodos de implementacion (0/2)
 
 
 ###################################################################
